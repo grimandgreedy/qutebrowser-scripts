@@ -1,56 +1,75 @@
-## Some Keybinds
+## Putting it all togther
 
-#### Config keybinds
+The requirements for each script can be seen below; this is all of it put together.
 
+### Keybinds
 ```
+## Some keybinds
+# Config keybinds
 config.bind(',cs', 'config-source')
 config.bind(',cw', 'config-write-py --force')
 config.bind(',ec', 'spawn --detach kitty sh -c "yazi ~/.config/qutebrowser/config.py"')
-```
 
-#### Translate page
-```
+
+# Translate page
 config.bind(',gt', ':open -t translate.google.com/translate?sl=auto&tl=en-US&u={url}')
-```
 
-#### Image similarity search 
-```
+# Image search
 config.bind(',his', 'hint images run :open -t https://tineye.com/search?url={hint-url}')
 config.bind(',hiS', 'hint images run :open -t https://yandex.com/images/search?rpt=imageview&url={hint-url}')
-```
 
-
-#### Alter text size
-```
-config.bind('<Alt+->', 'clear-messages ;; config-cycle --print fonts.web.size.default 30 28 26 24 22 20 18 16 14 12 10 8 6')
-config.bind('<Alt-Shift-+>', 'clear-messages ;; config-cycle --print fonts.web.size.default 6 8 10 12 14 16 18 20 22 24 26 28 30')
-config.bind('<Alt+=>', 'set --print fonts.web.size.default 16')
-```
-
-
-#### Open externally
-
-```
+# Open externally
 config.bind(',,c', 'spawn --detach chromium "{url}"')
 config.bind(',,C', 'spawn --detach chromium --incognito "{url}"')
 config.bind(',,f', 'spawn --detach firefox "{url}"')
 config.bind(',,F', 'spawn --detach firefox --private-window "{url}"')
-```
 
-####  Qutebrowser 
-```
+# Qutebrowser examine
 config.bind(',,k', 'spawn --userscript /bin/kitty')
 config.bind(',,h', '''spawn --userscript /bin/kitty sh -c "nvim -c 'setlocal bt=nofile' -c '%!html-beautify' ${QUTE_HTML}"''')
 config.bind(',,t', '''spawn --userscript /bin/kitty sh -c "nvim  -c 'setlocal bt=nofile' ${QUTE_TEXT}"''')
-```
 
-#### Adjust hints
-```
+# Adjust hints
 config.bind('-', 'clear-messages ;; config-cycle --print fonts.hints "bold 13pt default_family" "bold 11pt default_family" "bold 9pt default_family" "bold 7pt default_family" "bold 5pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
 config.bind('+', 'clear-messages ;; config-cycle --print fonts.hints "bold 5pt default_family" "bold 7pt default_family" "bold 9pt default_family" "bold 11pt default_family" "bold 13pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
 config.bind('=', 'clear-messages ;; set fonts.hints "bold 11pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
 
 config.bind('<Tab>', 'clear-messages ;; config-cycle --print hints.mode word letter number ;; fake-key <Escape> ;; hint', mode='hint')
+```
+
+### Userscripts
+```
+## Userscripts
+# MPV
+config.bind(',m', 'spawn --userscript hint_launcher.py ~/.config/qutebrowser/userscripts/mpv.py')
+config.bind(',M', 'spawn --userscript ~/.config/qutebrowser/userscripts/mpv.py {url}')
+config.bind(';m', 'spawn --userscript hint_launcher.py ~/.config/qutebrowser/userscripts/mpv.py --rapid')
+
+# Copy chess game
+config.bind(',gg', 'spawn --userscript get_chess_game.sh')
+
+# Open images with system viewer
+config.bind(',hv', 'hint all spawn --userscript save_and_launch.sh vimiv {hint-url}')
+
+# Summarise current page
+config.bind(',ls', 'spawn --userscript summarise_file.py $QUTE_HTML --qb-html --model mistral')
+config.bind(',lS', 'spawn --userscript summarise_file.py $QUTE_HTML --popup --model mistral')
+
+# Read aloud
+config.bind(',ra', 'spawn --userscript read_aloud.py')
+
+# Increment all URL numbers
+config.bind('<Alt+x>', 'spawn --userscript incdecnums.py {url} -1')
+config.bind('<Alt+a>', 'spawn --userscript incdecnums.py {url} 1')
+config.bind('<Alt+Shift+x>', 'spawn --userscript incdecnums.py {url} -1 "" True')
+config.bind('<Alt+Shift+a>', 'spawn --userscript incdecnums.py {url} 1 "" True')
+
+# Navigate by anchors
+config.bind('g]', 'spawn --userscript anchors.py 1')
+config.bind('g[', 'spawn --userscript anchors.py -1')
+
+# Go to nth input field
+config.bind(',gi', 'spawn --userscript go_to_input.py')
 ```
 
 ## Userscripts
@@ -142,77 +161,6 @@ config.bind(',gi', 'spawn --userscript go_to_input.py')
 ```
 
 
-## All together:
-
-```
-
-# Config keybinds
-config.bind(',cs', 'config-source')
-config.bind(',cw', 'config-write-py --force')
-config.bind(',ec', 'spawn --detach kitty sh -c "yazi ~/.config/qutebrowser/config.py"')
-
-
-# Translate page
-config.bind(',gt', ':open -t translate.google.com/translate?sl=auto&tl=en-US&u={url}')
-
-# Image search
-config.bind(',his', 'hint images run :open -t https://tineye.com/search?url={hint-url}')
-config.bind(',hiS', 'hint images run :open -t https://yandex.com/images/search?rpt=imageview&url={hint-url}')
-
-# Open externally
-config.bind(',,c', 'spawn --detach chromium "{url}"')
-config.bind(',,C', 'spawn --detach chromium --incognito "{url}"')
-config.bind(',,f', 'spawn --detach firefox "{url}"')
-config.bind(',,F', 'spawn --detach firefox --private-window "{url}"')
-
-# Qutebrowser examine
-config.bind(',,k', 'spawn --userscript /bin/kitty')
-config.bind(',,h', '''spawn --userscript /bin/kitty sh -c "nvim -c 'setlocal bt=nofile' -c '%!html-beautify' ${QUTE_HTML}"''')
-config.bind(',,t', '''spawn --userscript /bin/kitty sh -c "nvim  -c 'setlocal bt=nofile' ${QUTE_TEXT}"''')
-
-# Adjust hints
-config.bind('-', 'clear-messages ;; config-cycle --print fonts.hints "bold 13pt default_family" "bold 11pt default_family" "bold 9pt default_family" "bold 7pt default_family" "bold 5pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
-config.bind('+', 'clear-messages ;; config-cycle --print fonts.hints "bold 5pt default_family" "bold 7pt default_family" "bold 9pt default_family" "bold 11pt default_family" "bold 13pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
-config.bind('=', 'clear-messages ;; set fonts.hints "bold 11pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
-
-config.bind('<Tab>', 'clear-messages ;; config-cycle --print hints.mode word letter number ;; fake-key <Escape> ;; hint', mode='hint')
-
-
-
-
-## Userscripts
-# MPV
-config.bind(',m', 'spawn --userscript hint_launcher.py ~/.config/qutebrowser/userscripts/mpv.py')
-config.bind(',M', 'spawn --userscript ~/.config/qutebrowser/userscripts/mpv.py {url}')
-config.bind(';m', 'spawn --userscript hint_launcher.py ~/.config/qutebrowser/userscripts/mpv.py --rapid')
-
-# Copy chess game
-config.bind(',gg', 'spawn --userscript get_chess_game.sh')
-
-# Open images with system viewer
-config.bind(',hv', 'hint all spawn --userscript save_and_launch.sh vimiv {hint-url}')
-
-# Summarise current page
-config.bind(',ls', 'spawn --userscript summarise_file.py $QUTE_HTML --qb-html --model mistral')
-config.bind(',lS', 'spawn --userscript summarise_file.py $QUTE_HTML --popup --model mistral')
-
-# Read aloud
-config.bind(',ra', 'spawn --userscript read_aloud.py')
-
-# Increment all URL numbers
-config.bind('<Alt+x>', 'spawn --userscript incdecnums.py {url} -1')
-config.bind('<Alt+a>', 'spawn --userscript incdecnums.py {url} 1')
-config.bind('<Alt+Shift+x>', 'spawn --userscript incdecnums.py {url} -1 "" True')
-config.bind('<Alt+Shift+a>', 'spawn --userscript incdecnums.py {url} 1 "" True')
-
-# Navigate by anchors
-config.bind('g]', 'spawn --userscript anchors.py 1')
-config.bind('g[', 'spawn --userscript anchors.py -1')
-
-# Go to nth input field
-config.bind(',gi', 'spawn --userscript go_to_input.py')
-
-```
 
 
 
