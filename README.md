@@ -76,6 +76,8 @@ config.bind(',gi', 'spawn --userscript go_to_input.py')
 
 Open videos with mpv. Videos will open in the same mpv instance. New instances can be created by running with a count argument--e.g., `4,m` will open a video link in the fourth instance. Any links passed with the same count argument will be run in the same mpv instance.
 
+This script makes use of `hint_launcher.py` to pass the count argument.
+
 ```
 config.bind(',m', 'spawn --userscript hint_launcher.py ~/.config/qutebrowser/userscripts/mpv.py')
 config.bind(',M', 'spawn --userscript ~/.config/qutebrowser/userscripts/mpv.py {url}')
