@@ -108,12 +108,16 @@ This script summarises a webpage using ollama. The model can be specified as you
 
 You will need to set up ollama and download a model for this to work.
 
+You will need to install ollama through pip--`python -m pip install ollama`
+
 ```
 config.bind(',ls', 'spawn --userscript summarise_file.py $QUTE_HTML --qb-html --model mistral')
 config.bind(',lS', 'spawn --userscript summarise_file.py $QUTE_HTML --popup --model mistral')
 ```
 
 ### Read aloud
+
+This script converts the text of a page to an audio file and then opens the audio file with mpv.
 
 For this script to work you will need to:
 
@@ -160,4 +164,3 @@ If this is run with a count then you can go to the nth input field. Useful if yo
 ```
 config.bind(',gi', 'spawn --userscript go_to_input.py')
 ```
-
