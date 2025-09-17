@@ -37,7 +37,7 @@ config.bind(',,f', 'spawn --detach firefox "{url}"')
 config.bind(',,F', 'spawn --detach firefox --private-window "{url}"')
 ```
 
-####  Qutebrowser variables
+####  Qutebrowser 
 ```
 config.bind(',,k', 'spawn --userscript /bin/kitty')
 config.bind(',,h', '''spawn --userscript /bin/kitty sh -c "nvim -c 'setlocal bt=nofile' -c '%!html-beautify' ${QUTE_HTML}"''')
@@ -53,6 +53,7 @@ config.bind('=', 'clear-messages ;; set fonts.hints "bold 11pt default_family" ;
 config.bind('<Tab>', 'clear-messages ;; config-cycle --print hints.mode word letter number ;; fake-key <Escape> ;; hint', mode='hint')
 ```
 
+## Userscripts
 ### mpv
 
 Open videos with mpv. Videos will open in the same mpv instance. New instances can be created by running with a count. Any links opened with the same count will be run in the same instance.
@@ -136,7 +137,103 @@ config.bind('g[', 'spawn --userscript anchors.py -1')
 
 If this is run with a count then you can go to the nth input field. Useful if you know you want to go to the third input field of a page.
 
-
 ```
 config.bind(',gi', 'spawn --userscript go_to_input.py')
 ```
+
+
+## All together:
+
+```
+
+# Config keybinds
+config.bind(',cs', 'config-source')
+config.bind(',cw', 'config-write-py --force')
+config.bind(',ec', 'spawn --detach kitty sh -c "yazi ~/.config/qutebrowser/config.py"')
+
+
+# Translate page
+config.bind(',gt', ':open -t translate.google.com/translate?sl=auto&tl=en-US&u={url}')
+
+# Image search
+config.bind(',his', 'hint images run :open -t https://tineye.com/search?url={hint-url}')
+config.bind(',hiS', 'hint images run :open -t https://yandex.com/images/search?rpt=imageview&url={hint-url}')
+
+# Open externally
+config.bind(',,c', 'spawn --detach chromium "{url}"')
+config.bind(',,C', 'spawn --detach chromium --incognito "{url}"')
+config.bind(',,f', 'spawn --detach firefox "{url}"')
+config.bind(',,F', 'spawn --detach firefox --private-window "{url}"')
+
+# Qutebrowser examine
+config.bind(',,k', 'spawn --userscript /bin/kitty')
+config.bind(',,h', '''spawn --userscript /bin/kitty sh -c "nvim -c 'setlocal bt=nofile' -c '%!html-beautify' ${QUTE_HTML}"''')
+config.bind(',,t', '''spawn --userscript /bin/kitty sh -c "nvim  -c 'setlocal bt=nofile' ${QUTE_TEXT}"''')
+
+# Adjust hints
+config.bind('-', 'clear-messages ;; config-cycle --print fonts.hints "bold 13pt default_family" "bold 11pt default_family" "bold 9pt default_family" "bold 7pt default_family" "bold 5pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
+config.bind('+', 'clear-messages ;; config-cycle --print fonts.hints "bold 5pt default_family" "bold 7pt default_family" "bold 9pt default_family" "bold 11pt default_family" "bold 13pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
+config.bind('=', 'clear-messages ;; set fonts.hints "bold 11pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
+
+config.bind('<Tab>', 'clear-messages ;; config-cycle --print hints.mode word letter number ;; fake-key <Escape> ;; hint', mode='hint')
+
+
+
+
+## Userscripts
+# MPV
+config.bind(',m', 'spawn --userscript hint_launcher.py ~/.config/qutebrowser/userscripts/mpv.py')
+config.bind(',M', 'spawn --userscript ~/.config/qutebrowser/userscripts/mpv.py {url}')
+config.bind(';m', 'spawn --userscript hint_launcher.py ~/.config/qutebrowser/userscripts/mpv.py --rapid')
+
+# Copy chess game
+config.bind(',gg', 'spawn --userscript get_chess_game.sh')
+
+# Open images with system viewer
+config.bind(',hv', 'hint all spawn --userscript save_and_launch.sh vimiv {hint-url}')
+
+# Summarise current page
+config.bind(',ls', 'spawn --userscript summarise_file.py $QUTE_HTML --qb-html --model mistral')
+config.bind(',lS', 'spawn --userscript summarise_file.py $QUTE_HTML --popup --model mistral')
+
+# Read aloud
+config.bind(',ra', 'spawn --userscript read_aloud.py')
+
+# Increment all URL numbers
+config.bind('<Alt+x>', 'spawn --userscript incdecnums.py {url} -1')
+config.bind('<Alt+a>', 'spawn --userscript incdecnums.py {url} 1')
+config.bind('<Alt+Shift+x>', 'spawn --userscript incdecnums.py {url} -1 "" True')
+config.bind('<Alt+Shift+a>', 'spawn --userscript incdecnums.py {url} 1 "" True')
+
+# Navigate by anchors
+config.bind('g]', 'spawn --userscript anchors.py 1')
+config.bind('g[', 'spawn --userscript anchors.py -1')
+
+# Go to nth input field
+config.bind(',gi', 'spawn --userscript go_to_input.py')
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
