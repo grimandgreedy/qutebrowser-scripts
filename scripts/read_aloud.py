@@ -13,9 +13,11 @@ import codecs
 import random, string
 
 def extract_readable_text_to_file(tmpdir="/tmp/"):
-    """Extract readable text from the current Qutebrowser page and save to a file.
+    """
+    Extract readable text from the current Qutebrowser page and save to a file.
 
-    This was adapted from the qutebrowser `readability` script
+    This function was adapted from the qutebrowser `readability` script
+        https://github.com/qutebrowser/qutebrowser/blob/main/misc/userscripts/readability
 
     Returns:
         str: Path to the temporary text file.
@@ -51,6 +53,7 @@ def extract_readable_text_to_file(tmpdir="/tmp/"):
     return tmpfile
 
 def display_message(msg):
+    """ Display info message to qutebrowser. """
     with open(os.environ["QUTE_FIFO"], "w") as f:
         f.write(f"message-info '{msg}'\n")
 

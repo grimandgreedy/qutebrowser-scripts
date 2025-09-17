@@ -2,7 +2,7 @@
 
 The requirements for each script can be seen below; this is all of it put together.
 
-### Keybinds
+### Some keybinds
 ```
 ## Some keybinds
 # Config keybinds
@@ -33,7 +33,6 @@ config.bind(',,t', '''spawn --userscript /bin/kitty sh -c "nvim  -c 'setlocal bt
 config.bind('-', 'clear-messages ;; config-cycle --print fonts.hints "bold 13pt default_family" "bold 11pt default_family" "bold 9pt default_family" "bold 7pt default_family" "bold 5pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
 config.bind('+', 'clear-messages ;; config-cycle --print fonts.hints "bold 5pt default_family" "bold 7pt default_family" "bold 9pt default_family" "bold 11pt default_family" "bold 13pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
 config.bind('=', 'clear-messages ;; set fonts.hints "bold 11pt default_family" ;; fake-key <Escape> ;; hint', mode='hint')
-
 config.bind('<Tab>', 'clear-messages ;; config-cycle --print hints.mode word letter number ;; fake-key <Escape> ;; hint', mode='hint')
 ```
 
@@ -75,7 +74,7 @@ config.bind(',gi', 'spawn --userscript go_to_input.py')
 ## Userscripts
 ### mpv
 
-Open videos with mpv. Videos will open in the same mpv instance. New instances can be created by running with a count. Any links opened with the same count will be run in the same instance.
+Open videos with mpv. Videos will open in the same mpv instance. New instances can be created by running with a count argument--e.g., `4,m` will open a video link in the fourth instance. Any links passed with the same count argument will be run in the same mpv instance.
 
 ```
 config.bind(',m', 'spawn --userscript hint_launcher.py ~/.config/qutebrowser/userscripts/mpv.py')
@@ -93,8 +92,6 @@ This script uses a regular expression to find chess moves in webpage and copies 
 config.bind(',gg', 'spawn --userscript get_chess_game.sh')
 ```
 
-
-
 ### Open image with system image viewer
 
 Open images with vimiv
@@ -106,6 +103,8 @@ config.bind(',hv', 'hint all spawn --userscript save_and_launch.sh vimiv {hint-u
 ### Summarise page
 
 This script summarises a webpage using ollama. The model can be specified as you wish.
+
+You will need to set up ollama and download a model for this to work.
 
 ```
 config.bind(',ls', 'spawn --userscript summarise_file.py $QUTE_HTML --qb-html --model mistral')
@@ -159,29 +158,4 @@ If this is run with a count then you can go to the nth input field. Useful if yo
 ```
 config.bind(',gi', 'spawn --userscript go_to_input.py')
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

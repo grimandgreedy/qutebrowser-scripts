@@ -7,9 +7,6 @@ Launch hints and run the script given on the command line with the hint-url.
 Allows the count argument to be given as --count
 """
 
-# qcommand = f":hint links spawn --userscript {sys.argv[1]} '{{hint-url}}'"
-# qcommand = f"{sys.argv[1]} {{hint-url}}"
-# qcommand = f"""{sys.argv[1]}"""
 qcommand = ""
 if "QUTE_COUNT" in os.environ:
     qcommand = f"{qcommand} --count {os.environ['QUTE_COUNT']}"

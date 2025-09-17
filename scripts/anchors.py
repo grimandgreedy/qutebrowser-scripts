@@ -71,29 +71,11 @@ def get_anchor(anchor_ids, n=1, loop=True):
         elif loop: next_anchor_index = (current_anchor_index+n)%len(anchor_ids)
 
         if next_anchor_index == current_anchor_index: exit()
-        #
-        # if current_anchor_index + n <= len(ids) and current_anchor_index + n >= 0:
-        #     next_anchor_index = current_anchor_index + n
-        # elif current_anchor_index + n == len(ids):
-        #     if loop: next_anchor_index = (current_anchor_index+n)%len(ids)
-        #     else: exit()
-        # elif current_anchor_index + n > len(ids):
-        #     if loop: next_anchor_index = (current_anchor_index+n)%len(ids)
-        #     else: next_anchor_index = len(ids) - 1
-        # elif current_anchor_index == 0 and n < 0:
-        #     if loop: next_anchor_index = (current_anchor_index+n)%len(ids)
-        #     else: exit()
-        # elif current_anchor_index + n < 0:
-        #     if loop: next_anchor_index = (current_anchor_index+n)%len(ids)
-        #     else: next_anchor_index = len(ids) - 1
-        # else:
-        #     next_anchor_index = current_anchor_index + 1
     return next_anchor_index
 
 n = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 count = int(os.environ["QUTE_COUNT"]) if "QUTE_COUNT" in os.environ else 1
 n *= count
-os.system(f"notify-send 'Count {count}, {type(count)}'")
 
 anchor_ids = get_anchors()
 if not anchor_ids: exit()
